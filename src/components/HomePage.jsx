@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'; 
 import RepoCard from './RepoCard.jsx';
 import Title from './Title';
-import { getRepos, partOfDashboard } from '../getData.js';
+import { getUserRepos, partOfDashboard } from '../getData.js';
 import config from '../../config.json';
 
 //entire dashboard
@@ -13,7 +13,7 @@ export function HomePage() {
   async function fetchRepos() {
     try {
       //the following lines automatically get all repos in the org and filter for ones with a test harness
-      const asyncResponse = await getRepos(config.organization);
+      const asyncResponse = await getUserRepos(config.organization);
       if([...asyncResponse] != [...repos]){
         setRepos(asyncResponse);
       }

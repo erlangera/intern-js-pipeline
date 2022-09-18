@@ -23,6 +23,29 @@ export const getRepos = async(org) => {
     return arrayNames;
  };
 
+ //gets list of repos from an user
+ export const getUserRepos = async(user) => {
+     const link = "https://api.github.com/users/"+user+"/repos";
+     const results = await axios.get(link,{
+         headers: {
+           }}
+     );
+     console.log(results)
+     const arrayRepos = await results.data.filter(async (element )=> {
+         //original line: return partOfDashboard(org, element.name)
+         //the line below is for debugging purposes
+         return await Promise.resolve(false)
+     });
+     console.log(arrayRepos)
+ 
+     const arrayNames = arrayRepos.map(element =>{
+         return element.name
+     })
+ 
+     arrayNames.sort();
+     return arrayNames;
+  };
+
  //returns true if repo has both onDemand and scheduled playwright workflows (so they have a test harness set up)
  export const partOfDashboard = async(org, repo) =>{
     const workflows = "https://api.github.com/repos/"+org+"/" +repo + "/actions/workflows";
