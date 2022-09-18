@@ -69,7 +69,7 @@ const config = {
             label: 'Documentation',
           },
           {
-            href: 'https://github.com/mspnp/intern-js-pipeline',
+            href: 'https://github.com/erlangera/intern-js-pipeline',
             position: 'right',
             className: 'header-github-link',
             'aria-label': 'GitHub repository',
