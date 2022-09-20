@@ -37,14 +37,26 @@ export const getRepos = async(org) => {
          return await Promise.resolve(false)
      });
      console.log(arrayRepos)
- 
-     const arrayNames = arrayRepos.map(element =>{
+     // filter by workflow
+     const workflows = await Promise.all(arrayRepos.map(repo => getWorkflow(user, repo)))
+     const arrayReposFiltered = arrayRepos.filter((_, i) => workflows[i].find(workflow => workflow.name === 'Scheduled Playwright tests'))
+     
+     const arrayNames = arrayReposFiltered.map(element =>{
          return element.name
      })
  
      arrayNames.sort();
      return arrayNames;
   };
+
+  const getWorkflow = async (user, repo) => {
+    const link = "https://api.github.com/repos/"+user+"/"+repo.name+"/actions/workflows";
+    const results = await axios.get(link,{
+        headers: {
+          }}
+    );
+    return results.data.workflows
+  }
 
  //returns true if repo has both onDemand and scheduled playwright workflows (so they have a test harness set up)
  export const partOfDashboard = async(org, repo) =>{
