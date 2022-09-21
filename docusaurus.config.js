@@ -8,7 +8,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const config = {
   title: 'Nightly Integration Tests Dashboard',
   url: 'https://erlangera.github.io',
-  baseUrl: '/intern-js-pipeline/',
+  baseUrl: '/test-report-dashboard/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
@@ -69,7 +69,7 @@ const config = {
             label: 'Documentation',
           },
           {
-            href: 'https://github.com/erlangera/intern-js-pipeline',
+            href: 'https://github.com/erlangera/test-report-dashboard',
             position: 'right',
             className: 'header-github-link',
             'aria-label': 'GitHub repository',
