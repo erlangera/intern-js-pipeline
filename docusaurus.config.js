@@ -69,6 +69,13 @@ const config = {
             label: 'Documentation',
           },
           {
+            label: 'Sign in',
+            href: 'https://github.com/login/oauth/authorize?client_id=af5779b1f85c21ef8665&state=123',
+            position: 'right',
+            target: '_self',
+            'aria-label': 'GitHub repository',
+          },
+          {
             href: 'https://github.com/erlangera/test-report-dashboard',
             position: 'right',
             className: 'header-github-link',

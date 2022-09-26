@@ -1,10 +1,17 @@
 import axios from "axios";
 
+let token = ''
+
+export const setToken = (value) => {
+    token = value;
+}
+
 //gets list of repos from an org
 export const getRepos = async(org) => {
     const link = "https://api.github.com/orgs/"+org+"/repos";
     const results = await axios.get(link,{
         headers: {
+            Authorization: token ? `token ${token}` : ''
           }}
     );
     console.log(results)
@@ -28,15 +35,14 @@ export const getRepos = async(org) => {
      const link = "https://api.github.com/users/"+user+"/repos";
      const results = await axios.get(link,{
          headers: {
+            Authorization: token ? `token ${token}` : ''
            }}
      );
-     console.log(results)
      const arrayRepos = await results.data.filter(async (element )=> {
          //original line: return partOfDashboard(org, element.name)
          //the line below is for debugging purposes
          return await Promise.resolve(false)
      });
-     console.log(arrayRepos)
      // filter by workflow
      const workflows = await Promise.all(arrayRepos.map(repo => getWorkflow(user, repo)))
      const arrayReposFiltered = arrayRepos.filter((_, i) => workflows[i].find(workflow => workflow.name === 'Scheduled Playwright tests'))
@@ -53,6 +59,7 @@ export const getRepos = async(org) => {
     const link = "https://api.github.com/repos/"+user+"/"+repo.name+"/actions/workflows";
     const results = await axios.get(link,{
         headers: {
+            Authorization: token ? `token ${token}` : ''
           }}
     );
     return results.data.workflows
@@ -99,6 +106,7 @@ export const getRepos = async(org) => {
     const link = "https://api.github.com/repos/"+org+"/" +repo + "/actions/workflows/playwright-scheduled.yml/runs";
     const results = await axios.get(link,{
         headers: {
+            Authorization: token ? `token ${token}` : ''
         }}
     );
     if(results.status == 404){
@@ -117,3 +125,11 @@ export const getRepos = async(org) => {
     return status;
  }
 
+// return user access token by code
+export const getAccessToken = async function (code) {
+  const link = "https://erlangera.azurewebsites.net/api/oauth?code=" + code;
+  const results = await axios.get(link, {
+    headers: {}
+  });
+  return results.data;
+}
